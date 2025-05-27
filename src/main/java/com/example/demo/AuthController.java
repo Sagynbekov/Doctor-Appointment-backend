@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 public class AuthController {
     @Autowired
@@ -28,6 +30,16 @@ public class AuthController {
             return ResponseEntity.status(409).body("Username already exists");
         } else {
             return ResponseEntity.status(500).body("Registration error");
+        }
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<?> getUser(@RequestParam String username) {
+        Optional<User> userOpt = userService.getUserByUsername(username);
+        if (userOpt.isPresent()) {
+            return ResponseEntity.ok(userOpt.get());
+        } else {
+            return ResponseEntity.status(404).body("User not found");
         }
     }
 }
