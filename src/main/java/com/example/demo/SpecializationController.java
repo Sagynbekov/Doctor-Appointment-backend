@@ -21,4 +21,23 @@ public class SpecializationController {
     public ResponseEntity<List<Specialization>> getAllSpecializations() {
         return ResponseEntity.ok(specializationService.getAllSpecializations());
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Specialization> updateSpecialization(@PathVariable Long id, @RequestBody Specialization specialization) {
+        Specialization updated = specializationService.updateSpecialization(id, specialization);
+        if (updated == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updated);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteSpecialization(@PathVariable Long id) {
+        boolean deleted = specializationService.deleteSpecialization(id);
+        if (deleted) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

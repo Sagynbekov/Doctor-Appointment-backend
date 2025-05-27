@@ -16,4 +16,21 @@ public class SpecializationService {
     public List<Specialization> getAllSpecializations() {
         return specializationRepository.findAll();
     }
+
+    public Specialization updateSpecialization(Long id, Specialization specialization) {
+        return specializationRepository.findById(id).map(existing -> {
+            existing.setName(specialization.getName());
+            existing.setDescription(specialization.getDescription());
+            existing.setService(specialization.getService());
+            return specializationRepository.save(existing);
+        }).orElse(null);
+    }
+
+    public boolean deleteSpecialization(Long id) {
+        if (specializationRepository.existsById(id)) {
+            specializationRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 }

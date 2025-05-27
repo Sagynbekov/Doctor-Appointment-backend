@@ -21,4 +21,23 @@ public class DoctorController {
     public ResponseEntity<List<Doctor>> getAllDoctors() {
         return ResponseEntity.ok(doctorService.getAllDoctors());
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Doctor> updateDoctor(@PathVariable Long id, @RequestBody Doctor doctor) {
+        Doctor updated = doctorService.updateDoctor(id, doctor);
+        if (updated == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updated);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteDoctor(@PathVariable Long id) {
+        boolean deleted = doctorService.deleteDoctor(id);
+        if (deleted) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
