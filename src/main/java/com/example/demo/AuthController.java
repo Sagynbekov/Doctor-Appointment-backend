@@ -20,8 +20,8 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
-        String result = userService.register(request.getUsername(), request.getPassword());
+    public ResponseEntity<?> register(@RequestBody User user) { // Changed to accept User object
+        String result = userService.register(user); // Pass the User object to the service
         if ("ok".equals(result)) {
             return ResponseEntity.ok().body("Registration successful");
         } else if ("exists".equals(result)) {

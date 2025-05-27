@@ -14,13 +14,10 @@ public class UserService {
         return userOpt.isPresent() && userOpt.get().getPassword().equals(password);
     }
 
-    public String register(String username, String password) {
-        if (userRepository.findByUsername(username).isPresent()) {
+    public String register(User user) { // Modified to accept User object
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
             return "exists";
         }
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
         userRepository.save(user);
         return "ok";
     }
