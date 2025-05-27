@@ -25,6 +25,9 @@ public class Doctor {
     @Column(nullable = true)
     private String photoUrl;
 
+    @Column(nullable = false)
+    private String service;
+
     // getters and setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -38,4 +41,6 @@ public class Doctor {
     public void setAbout(String about) { this.about = about; }
     public String getPhotoUrl() { return photoUrl; }
     public void setPhotoUrl(String photoUrl) { this.photoUrl = photoUrl; }
+    public String getService() { return service; }
+    public void setService(String service) { this.service = service; }
 }
