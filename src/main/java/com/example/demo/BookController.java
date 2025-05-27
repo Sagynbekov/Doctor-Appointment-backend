@@ -45,6 +45,7 @@ public class BookController {
             map.put("id", book.getId());
             map.put("date", book.getDate());
             map.put("time", book.getTime());
+            map.put("doctorId", book.getDoctorId()); // добавляем doctorId
             var doctorOpt = doctorRepository.findById(book.getDoctorId());
             if (doctorOpt.isPresent()) {
                 var doctor = doctorOpt.get();
